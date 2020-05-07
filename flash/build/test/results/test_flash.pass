@@ -1,0 +1,22 @@
+---
+:source:
+  :path: test
+  :file: test_flash.c
+:successes:
+- :test: test_write_read
+  :line: 45
+  :message: ''
+  :unity_test_time: 0
+- :test: test_when_flash_is_erased_then_the_config_load_count_is_reset
+  :line: 59
+  :message: ''
+  :unity_test_time: 0
+:failures: []
+:ignores: []
+:counts:
+  :total: 2
+  :passed: 2
+  :failed: 0
+  :ignored: 0
+:stdout: []
+:time: 0.018156699999963166

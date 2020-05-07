@@ -1,0 +1,7 @@
+---
+D:/flash/vendor/ceedling/vendor/unity/src/unity.c:
+- TEST
+build/test/mocks/mock_flash.c:
+- TEST
+src/config.c:
+- TEST

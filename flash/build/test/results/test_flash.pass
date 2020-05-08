@@ -8,7 +8,7 @@
   :message: ''
   :unity_test_time: 0
 - :test: test_when_flash_is_erased_then_the_config_load_count_is_reset
-  :line: 59
+  :line: 63
   :message: ''
   :unity_test_time: 0
 :failures: []
@@ -19,4 +19,4 @@
   :failed: 0
   :ignored: 0
 :stdout: []
-:time: 0.018156699999963166
+:time: 0.01803820000009182

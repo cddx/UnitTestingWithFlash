@@ -1,4 +1,4 @@
 build/test/out/c/unity.o: \
- D:/flash/vendor/ceedling/vendor/unity/src/unity.c \
- D:/flash/vendor/ceedling/vendor/unity/src/unity.h \
- D:/flash/vendor/ceedling/vendor/unity/src/unity_internals.h
+ D:/UnitTestingWithFlash/flash/vendor/ceedling/vendor/unity/src/unity.c \
+ D:/UnitTestingWithFlash/flash/vendor/ceedling/vendor/unity/src/unity.h \
+ D:/UnitTestingWithFlash/flash/vendor/ceedling/vendor/unity/src/unity_internals.h

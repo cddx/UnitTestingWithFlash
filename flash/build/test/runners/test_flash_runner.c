@@ -84,7 +84,7 @@ int main(void)
 {
   UnityBegin("test_flash.c");
   run_test(test_write_read, "test_write_read", 45);
-  run_test(test_when_flash_is_erased_then_the_config_load_count_is_reset, "test_when_flash_is_erased_then_the_config_load_count_is_reset", 59);
+  run_test(test_when_flash_is_erased_then_the_config_load_count_is_reset, "test_when_flash_is_erased_then_the_config_load_count_is_reset", 63);
 
   CMock_Guts_MemFreeFinal();
   return UnityEnd();

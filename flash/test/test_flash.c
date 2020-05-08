@@ -29,7 +29,7 @@ static void mock_write(uint8_t *source_data, uint8_t *target_address, size_t cou
 
 static void config_load(config_t *cfg)
 {
-    flash_read((uint8_t *)cfg, (FLASH_SIZE - 1), 1);//! configuration bits location
+    flash_read((uint8_t *)cfg, (FLASH_SIZE - 1), 1); //! configuration bits location
 }
 
 void setUp(void)
@@ -44,17 +44,21 @@ void tearDown(void)
 
 void test_write_read(void)
 {
-    uint8_t write_data[100];
-    for (int i = 1; i < 100; i++)
+#define TEST_FLASH_SIZE 1000
+    TEST_ASSERT_LESS_OR_EQUAL_MESSAGE(FLASH_SIZE, TEST_FLASH_SIZE, "test_flash_buffer should less FLASH_SIZE");
+   
+    uint8_t write_data[TEST_FLASH_SIZE];
+    for (int i = 0; i < TEST_FLASH_SIZE; i++)
     {
         write_data[i] = i;
     }
     uint8_t *flash_address = (uint8_t *)0;
-    flash_write(write_data, flash_address, 100);
+    flash_write(write_data, flash_address, TEST_FLASH_SIZE);
 
-    uint8_t read_data[100];
-    flash_read(&read_data, flash_address, 100);
-    TEST_ASSERT_EQUAL_UINT8_ARRAY(write_data, read_data, 100);
+    uint8_t read_data[TEST_FLASH_SIZE];
+    flash_read(&read_data, flash_address, TEST_FLASH_SIZE);
+
+    TEST_ASSERT_EQUAL_UINT8_ARRAY(write_data, read_data, TEST_FLASH_SIZE);
 }
 void test_when_flash_is_erased_then_the_config_load_count_is_reset(void)
 {
@@ -68,5 +72,5 @@ void test_when_flash_is_erased_then_the_config_load_count_is_reset(void)
     config_load(&config);
 
     // Verify the load_count is reset to 1.
-    TEST_ASSERT_EQUAL_HEX(0x01, config.load_count);
+    TEST_ASSERT_EQUAL_HEX8(0x01, config.load_count);
 }

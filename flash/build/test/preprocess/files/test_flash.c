@@ -1,7 +1,7 @@
 #include "build/temp/_test_flash.c"
 #include "build/test/mocks/mock_flash.h"
 #include "src/config.h"
-#include "D:/flash/vendor/ceedling/vendor/unity/src/unity.h"
+#include "D:/UnitTestingWithFlash/flash/vendor/ceedling/vendor/unity/src/unity.h"
 
 
 
@@ -84,9 +84,15 @@ void test_write_read(void)
 
 {
 
-    uint8_t write_data[100];
 
-    for (int i = 1; i < 100; i++)
+
+    UnityAssertGreaterOrLessOrEqualNumber((UNITY_INT) ((4096)), (UNITY_INT) ((1000)), UNITY_SMALLER_OR_EQUAL, (("test_flash_buffer should less FLASH_SIZE")), (UNITY_UINT)(48), UNITY_DISPLAY_STYLE_INT);
+
+
+
+    uint8_t write_data[1000];
+
+    for (int i = 0; i < 1000; i++)
 
     {
 
@@ -96,19 +102,21 @@ void test_write_read(void)
 
     uint8_t *flash_address = (uint8_t *)0;
 
-    flash_write(write_data, flash_address, 100);
+    flash_write(write_data, flash_address, 1000);
 
 
 
-    uint8_t read_data[100];
+    uint8_t read_data[1000];
 
-    flash_read(&read_data, flash_address, 100);
+    flash_read(&read_data, flash_address, 1000);
 
-    UnityAssertEqualIntArray(( const void*)((write_data)), ( const void*)((read_data)), (UNITY_UINT32)((100)), (
+
+
+    UnityAssertEqualIntArray(( const void*)((write_data)), ( const void*)((read_data)), (UNITY_UINT32)((1000)), (
 
    ((void *)0)
 
-   ), (UNITY_UINT)(57), UNITY_DISPLAY_STYLE_UINT8, UNITY_ARRAY_TO_ARRAY);
+   ), (UNITY_UINT)(61), UNITY_DISPLAY_STYLE_UINT8, UNITY_ARRAY_TO_ARRAY);
 
 }
 
@@ -136,10 +144,10 @@ void test_when_flash_is_erased_then_the_config_load_count_is_reset(void)
 
 
 
-    UnityAssertEqualNumber((UNITY_INT)(UNITY_INT32)((0x01)), (UNITY_INT)(UNITY_INT32)((config.load_count)), (
+    UnityAssertEqualNumber((UNITY_INT)(UNITY_INT8 )((0x01)), (UNITY_INT)(UNITY_INT8 )((config.load_count)), (
 
    ((void *)0)
 
-   ), (UNITY_UINT)(71), UNITY_DISPLAY_STYLE_HEX32);
+   ), (UNITY_UINT)(75), UNITY_DISPLAY_STYLE_HEX8);
 
 }

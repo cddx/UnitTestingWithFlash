@@ -35,13 +35,13 @@ typedef struct _CMOCK_flash_write_CALL_INSTANCE
 
 static struct mock_flashInstance
 {
-  int flash_read_IgnoreBool;
-  int flash_read_CallbackBool;
+  char flash_read_IgnoreBool;
+  char flash_read_CallbackBool;
   CMOCK_flash_read_CALLBACK flash_read_CallbackFunctionPointer;
   int flash_read_CallbackCalls;
   CMOCK_MEM_INDEX_TYPE flash_read_CallInstance;
-  int flash_write_IgnoreBool;
-  int flash_write_CallbackBool;
+  char flash_write_IgnoreBool;
+  char flash_write_CallbackBool;
   CMOCK_flash_write_CALLBACK flash_write_CallbackFunctionPointer;
   int flash_write_CallbackCalls;
   CMOCK_MEM_INDEX_TYPE flash_write_CallInstance;
@@ -58,19 +58,29 @@ void mock_flash_Verify(void)
   call_instance = Mock.flash_read_CallInstance;
   if (Mock.flash_read_IgnoreBool)
     call_instance = CMOCK_GUTS_NONE;
-  UNITY_SET_DETAIL(CMockString_flash_read);
-  UNITY_TEST_ASSERT(CMOCK_GUTS_NONE == call_instance, cmock_line, CMockStringCalledLess);
-  UNITY_CLR_DETAILS();
+  if (CMOCK_GUTS_NONE != call_instance)
+  {
+    UNITY_SET_DETAIL(CMockString_flash_read);
+    UNITY_TEST_FAIL(cmock_line, CMockStringCalledLess);
+  }
   if (Mock.flash_read_CallbackFunctionPointer != NULL)
+  {
     call_instance = CMOCK_GUTS_NONE;
+    (void)call_instance;
+  }
   call_instance = Mock.flash_write_CallInstance;
   if (Mock.flash_write_IgnoreBool)
     call_instance = CMOCK_GUTS_NONE;
-  UNITY_SET_DETAIL(CMockString_flash_write);
-  UNITY_TEST_ASSERT(CMOCK_GUTS_NONE == call_instance, cmock_line, CMockStringCalledLess);
-  UNITY_CLR_DETAILS();
+  if (CMOCK_GUTS_NONE != call_instance)
+  {
+    UNITY_SET_DETAIL(CMockString_flash_write);
+    UNITY_TEST_FAIL(cmock_line, CMockStringCalledLess);
+  }
   if (Mock.flash_write_CallbackFunctionPointer != NULL)
+  {
     call_instance = CMOCK_GUTS_NONE;
+    (void)call_instance;
+  }
 }
 
 void mock_flash_Init(void)
@@ -136,7 +146,6 @@ void flash_read(uint8_t* dest_buffer, uint8_t* source_address, size_t count)
   UNITY_CLR_DETAILS();
 }
 
-void CMockExpectParameters_flash_read(CMOCK_flash_read_CALL_INSTANCE* cmock_call_instance, uint8_t* dest_buffer, uint8_t* source_address, size_t count);
 void CMockExpectParameters_flash_read(CMOCK_flash_read_CALL_INSTANCE* cmock_call_instance, uint8_t* dest_buffer, uint8_t* source_address, size_t count)
 {
   cmock_call_instance->Expected_dest_buffer = dest_buffer;
@@ -147,7 +156,12 @@ void CMockExpectParameters_flash_read(CMOCK_flash_read_CALL_INSTANCE* cmock_call
 
 void flash_read_CMockIgnore(void)
 {
-  Mock.flash_read_IgnoreBool = (int)1;
+  Mock.flash_read_IgnoreBool = (char)1;
+}
+
+void flash_read_CMockStopIgnore(void)
+{
+  Mock.flash_read_IgnoreBool = (char)0;
 }
 
 void flash_read_CMockExpect(UNITY_LINE_TYPE cmock_line, uint8_t* dest_buffer, uint8_t* source_address, size_t count)
@@ -157,7 +171,7 @@ void flash_read_CMockExpect(UNITY_LINE_TYPE cmock_line, uint8_t* dest_buffer, ui
   UNITY_TEST_ASSERT_NOT_NULL(cmock_call_instance, cmock_line, CMockStringOutOfMemory);
   memset(cmock_call_instance, 0, sizeof(*cmock_call_instance));
   Mock.flash_read_CallInstance = CMock_Guts_MemChain(Mock.flash_read_CallInstance, cmock_guts_index);
-  Mock.flash_read_IgnoreBool = (int)0;
+  Mock.flash_read_IgnoreBool = (char)0;
   cmock_call_instance->LineNumber = cmock_line;
   cmock_call_instance->CallOrder = ++GlobalExpectCount;
   CMockExpectParameters_flash_read(cmock_call_instance, dest_buffer, source_address, count);
@@ -165,15 +179,15 @@ void flash_read_CMockExpect(UNITY_LINE_TYPE cmock_line, uint8_t* dest_buffer, ui
 
 void flash_read_AddCallback(CMOCK_flash_read_CALLBACK Callback)
 {
-  Mock.flash_read_IgnoreBool = (int)0;
-  Mock.flash_read_CallbackBool = (int)1;
+  Mock.flash_read_IgnoreBool = (char)0;
+  Mock.flash_read_CallbackBool = (char)1;
   Mock.flash_read_CallbackFunctionPointer = Callback;
 }
 
 void flash_read_Stub(CMOCK_flash_read_CALLBACK Callback)
 {
-  Mock.flash_read_IgnoreBool = (int)0;
-  Mock.flash_read_CallbackBool = (int)0;
+  Mock.flash_read_IgnoreBool = (char)0;
+  Mock.flash_read_CallbackBool = (char)0;
   Mock.flash_read_CallbackFunctionPointer = Callback;
 }
 
@@ -227,7 +241,6 @@ void flash_write(uint8_t* source_data, uint8_t* target_address, size_t count)
   UNITY_CLR_DETAILS();
 }
 
-void CMockExpectParameters_flash_write(CMOCK_flash_write_CALL_INSTANCE* cmock_call_instance, uint8_t* source_data, uint8_t* target_address, size_t count);
 void CMockExpectParameters_flash_write(CMOCK_flash_write_CALL_INSTANCE* cmock_call_instance, uint8_t* source_data, uint8_t* target_address, size_t count)
 {
   cmock_call_instance->Expected_source_data = source_data;
@@ -238,7 +251,12 @@ void CMockExpectParameters_flash_write(CMOCK_flash_write_CALL_INSTANCE* cmock_ca
 
 void flash_write_CMockIgnore(void)
 {
-  Mock.flash_write_IgnoreBool = (int)1;
+  Mock.flash_write_IgnoreBool = (char)1;
+}
+
+void flash_write_CMockStopIgnore(void)
+{
+  Mock.flash_write_IgnoreBool = (char)0;
 }
 
 void flash_write_CMockExpect(UNITY_LINE_TYPE cmock_line, uint8_t* source_data, uint8_t* target_address, size_t count)
@@ -248,7 +266,7 @@ void flash_write_CMockExpect(UNITY_LINE_TYPE cmock_line, uint8_t* source_data, u
   UNITY_TEST_ASSERT_NOT_NULL(cmock_call_instance, cmock_line, CMockStringOutOfMemory);
   memset(cmock_call_instance, 0, sizeof(*cmock_call_instance));
   Mock.flash_write_CallInstance = CMock_Guts_MemChain(Mock.flash_write_CallInstance, cmock_guts_index);
-  Mock.flash_write_IgnoreBool = (int)0;
+  Mock.flash_write_IgnoreBool = (char)0;
   cmock_call_instance->LineNumber = cmock_line;
   cmock_call_instance->CallOrder = ++GlobalExpectCount;
   CMockExpectParameters_flash_write(cmock_call_instance, source_data, target_address, count);
@@ -256,15 +274,15 @@ void flash_write_CMockExpect(UNITY_LINE_TYPE cmock_line, uint8_t* source_data, u
 
 void flash_write_AddCallback(CMOCK_flash_write_CALLBACK Callback)
 {
-  Mock.flash_write_IgnoreBool = (int)0;
-  Mock.flash_write_CallbackBool = (int)1;
+  Mock.flash_write_IgnoreBool = (char)0;
+  Mock.flash_write_CallbackBool = (char)1;
   Mock.flash_write_CallbackFunctionPointer = Callback;
 }
 
 void flash_write_Stub(CMOCK_flash_write_CALLBACK Callback)
 {
-  Mock.flash_write_IgnoreBool = (int)0;
-  Mock.flash_write_CallbackBool = (int)0;
+  Mock.flash_write_IgnoreBool = (char)0;
+  Mock.flash_write_CallbackBool = (char)0;
   Mock.flash_write_CallbackFunctionPointer = Callback;
 }
 

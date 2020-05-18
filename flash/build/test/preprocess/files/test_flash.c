@@ -1,7 +1,8 @@
 #include "build/temp/_test_flash.c"
 #include "build/test/mocks/mock_flash.h"
-#include "src/config.h"
 #include "D:/UnitTestingWithFlash/flash/vendor/ceedling/vendor/unity/src/unity.h"
+
+
 
 
 
@@ -50,23 +51,15 @@ static void mock_write(uint8_t *source_data, uint8_t *target_address, size_t cou
 
 
 
-static void config_load(config_t *cfg)
-
-{
-
-    flash_read((uint8_t *)cfg, (4096 - 1), 1);
-
-}
-
 
 
 void setUp(void)
 
 {
 
-    flash_read_Stub(mock_read);
-
     flash_write_Stub(mock_write);
+
+    flash_read_Stub(mock_read);
 
 }
 
@@ -86,13 +79,13 @@ void test_write_read(void)
 
 
 
-    UnityAssertGreaterOrLessOrEqualNumber((UNITY_INT) ((4096)), (UNITY_INT) ((1000)), UNITY_SMALLER_OR_EQUAL, (("test_flash_buffer should less FLASH_SIZE")), (UNITY_UINT)(48), UNITY_DISPLAY_STYLE_INT);
+    UnityAssertGreaterOrLessOrEqualNumber((UNITY_INT) ((4096)), (UNITY_INT) ((4096)), UNITY_SMALLER_OR_EQUAL, (("TEST_FLASH_SIZE should less FLASH_MAX_SIZE")), (UNITY_UINT)(44), UNITY_DISPLAY_STYLE_INT);
 
 
 
-    uint8_t write_data[1000];
+    uint8_t write_data[4096];
 
-    for (int i = 0; i < 1000; i++)
+    for (int i = 0; i < 4096; i++)
 
     {
 
@@ -102,52 +95,20 @@ void test_write_read(void)
 
     uint8_t *flash_address = (uint8_t *)0;
 
-    flash_write(write_data, flash_address, 1000);
+    flash_write(write_data, flash_address, 4096);
 
 
 
-    uint8_t read_data[1000];
+    uint8_t read_data[4096];
 
-    flash_read(&read_data, flash_address, 1000);
-
-
-
-    UnityAssertEqualIntArray(( const void*)((write_data)), ( const void*)((read_data)), (UNITY_UINT32)((1000)), (
-
-   ((void *)0)
-
-   ), (UNITY_UINT)(61), UNITY_DISPLAY_STYLE_UINT8, UNITY_ARRAY_TO_ARRAY);
-
-}
-
-void test_when_flash_is_erased_then_the_config_load_count_is_reset(void)
-
-{
+    flash_read(&read_data, flash_address, 4096);
 
 
 
-    memset(simulated_flash, 0xff, 4096);
-
-    simulated_flash[4096 - 1] = 0x01;
-
-
-
-
-
-    config_t config = {0};
-
-
-
-    config_load(&config);
-
-
-
-
-
-    UnityAssertEqualNumber((UNITY_INT)(UNITY_INT8 )((0x01)), (UNITY_INT)(UNITY_INT8 )((config.load_count)), (
+    UnityAssertEqualIntArray(( const void*)((write_data)), ( const void*)((read_data)), (UNITY_UINT32)((4096)), (
 
    ((void *)0)
 
-   ), (UNITY_UINT)(75), UNITY_DISPLAY_STYLE_HEX8);
+   ), (UNITY_UINT)(57), UNITY_DISPLAY_STYLE_UINT8, UNITY_ARRAY_TO_ARRAY);
 
 }

@@ -5,13 +5,10 @@
 		<Test id="1">
 			<Name>test/test_flash.c::test_write_read</Name>
 		</Test>
-		<Test id="2">
-			<Name>test/test_flash.c::test_when_flash_is_erased_then_the_config_load_count_is_reset</Name>
-		</Test>
 	</SuccessfulTests>
 	<IgnoredTests/>
 	<Statistics>
-		<Tests>2</Tests>
+		<Tests>1</Tests>
 		<Ignores>0</Ignores>
 		<FailuresTotal>0</FailuresTotal>
 		<Errors>0</Errors>

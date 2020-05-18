@@ -26,6 +26,8 @@ void mock_flash_Verify(void);
 
 #define flash_read_Ignore() flash_read_CMockIgnore()
 void flash_read_CMockIgnore(void);
+#define flash_read_StopIgnore() flash_read_CMockStopIgnore()
+void flash_read_CMockStopIgnore(void);
 #define flash_read_Expect(dest_buffer, source_address, count) flash_read_CMockExpect(__LINE__, dest_buffer, source_address, count)
 void flash_read_CMockExpect(UNITY_LINE_TYPE cmock_line, uint8_t* dest_buffer, uint8_t* source_address, size_t count);
 typedef void (* CMOCK_flash_read_CALLBACK)(uint8_t* dest_buffer, uint8_t* source_address, size_t count, int cmock_num_calls);
@@ -34,6 +36,8 @@ void flash_read_Stub(CMOCK_flash_read_CALLBACK Callback);
 #define flash_read_StubWithCallback flash_read_Stub
 #define flash_write_Ignore() flash_write_CMockIgnore()
 void flash_write_CMockIgnore(void);
+#define flash_write_StopIgnore() flash_write_CMockStopIgnore()
+void flash_write_CMockStopIgnore(void);
 #define flash_write_Expect(source_data, target_address, count) flash_write_CMockExpect(__LINE__, source_data, target_address, count)
 void flash_write_CMockExpect(UNITY_LINE_TYPE cmock_line, uint8_t* source_data, uint8_t* target_address, size_t count);
 typedef void (* CMOCK_flash_write_CALLBACK)(uint8_t* source_data, uint8_t* target_address, size_t count, int cmock_num_calls);

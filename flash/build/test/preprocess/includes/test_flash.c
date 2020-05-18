@@ -1,5 +1,4 @@
 ---
 - D:/UnitTestingWithFlash/flash/vendor/ceedling/vendor/unity/src/unity.h
-- src/config.h
 - build/test/mocks/mock_flash.h
 - build/temp/_test_flash.c

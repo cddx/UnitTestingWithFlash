@@ -27,6 +27,7 @@
   :support:
   - test/support
   :include: []
+  :libraries: []
   :test_toolchain_include: []
   :release_toolchain_include: []
 :files:
@@ -49,18 +50,22 @@
   :use_test_definition: false
   :common: []
 :libraries:
+  :flag: "${1}"
+  :path_flag: "-L ${1}"
   :test: []
   :test_preprocess: []
   :release: []
   :release_preprocess: []
   :placement: :end
-  :flag: "${1}"
 :flags: {}
 :extension:
   :header: ".h"
   :source: ".c"
   :assembly: ".s"
   :object: ".o"
+  :libraries:
+  - ".a"
+  - ".so"
   :executable: ".out"
   :map: ".map"
   :list: ".lst"
@@ -103,11 +108,14 @@
     :background_exec: :none
     :optional: false
     :arguments:
+    - ''
+    - ''
     - -I"$": COLLECTION_PATHS_TEST_SUPPORT_SOURCE_INCLUDE_VENDOR
     - -I"$": COLLECTION_PATHS_TEST_TOOLCHAIN_INCLUDE
     - "-D$": COLLECTION_DEFINES_TEST_AND_VENDOR
     - "-DGNU_COMPILER"
     - "-g"
+    - ''
     - -c "${1}"
     - -o "${2}"
     - "-MMD"
@@ -126,10 +134,15 @@
     :background_exec: :none
     :optional: false
     :arguments:
+    - ''
+    - ''
+    - ''
     - '"${1}"'
+    - "${5}"
     - -o "${2}"
     - ''
     - "${4}"
+    - ''
   :test_file_preprocessor:
     :executable: gcc.exe
     :name: default_test_file_preprocessor
@@ -137,6 +150,8 @@
     :background_exec: :none
     :optional: false
     :arguments:
+    - ''
+    - ''
     - "-E"
     - -I"$": COLLECTION_PATHS_TEST_SUPPORT_SOURCE_INCLUDE_VENDOR
     - -I"$": COLLECTION_PATHS_TEST_TOOLCHAIN_INCLUDE
@@ -152,6 +167,8 @@
     :background_exec: :none
     :optional: false
     :arguments:
+    - ''
+    - ''
     - "-E"
     - "-MM"
     - "-MG"
@@ -160,7 +177,6 @@
     - "-D$": COLLECTION_DEFINES_TEST_AND_VENDOR
     - "-D$": DEFINES_TEST_PREPROCESS
     - "-DGNU_COMPILER"
-    - "-w"
     - '"${1}"'
 :test_compiler:
   :arguments: []

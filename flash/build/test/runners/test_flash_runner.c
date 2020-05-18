@@ -13,7 +13,6 @@ char* GlobalOrderError;
 extern void setUp(void);
 extern void tearDown(void);
 extern void test_write_read(void);
-extern void test_when_flash_is_erased_then_the_config_load_count_is_reset(void);
 
 
 /*=======Mock Management=====*/
@@ -48,6 +47,7 @@ void verifyTest(void)
 {
   CMock_Verify();
 }
+
 /*=======Test Runner Used To Run Each Test=====*/
 static void run_test(UnityTestFunction func, const char* name, int line_num)
 {
@@ -63,10 +63,8 @@ static void run_test(UnityTestFunction func, const char* name, int line_num)
     CMock_Init();
     if (TEST_PROTECT())
     {
-
-            setUp();
-            func();
-
+        setUp();
+        func();
     }
     if (TEST_PROTECT())
     {
@@ -78,13 +76,11 @@ static void run_test(UnityTestFunction func, const char* name, int line_num)
     UnityConcludeTest();
 }
 
-
 /*=======MAIN=====*/
 int main(void)
 {
   UnityBegin("test_flash.c");
-  run_test(test_write_read, "test_write_read", 45);
-  run_test(test_when_flash_is_erased_then_the_config_load_count_is_reset, "test_when_flash_is_erased_then_the_config_load_count_is_reset", 63);
+  run_test(test_write_read, "test_write_read", 41);
 
   CMock_Guts_MemFreeFinal();
   return UnityEnd();
